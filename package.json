@@ -1,0 +1,72 @@
+{
+  "name": "receipt-tracker",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.1.1",
+    "@fortawesome/fontawesome-svg-core": "^1.2.1",
+    "@fortawesome/react-fontawesome": "^0.1.0",
+    "@types/enzyme": "^3.1.12",
+    "@types/jest": "^23.3.0",
+    "@types/lodash": "^4.14.112",
+    "@types/material-ui": "^0.21.4",
+    "@types/prop-types": "^15.5.3",
+    "@types/react-bootstrap": "^0.32.11",
+    "@types/react-redux": "^6.0.4",
+    "bootstrap": "^4.1.2",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "font-awesome": "^4.7.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^23.4.1",
+    "jquery": "^3.3.1",
+    "lodash": "^4.17.10",
+    "material-ui": "^0.20.1",
+    "popper.js": "^1.14.3",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-redux": "^5.0.7",
+    "react-test-renderer": "^16.4.1",
+    "redux": "^4.0.0",
+    "redux-mock-store": "^1.5.3",
+    "redux-thunk": "^2.3.0"
+  },
+  "devDependencies": {
+    "anser": "^1.4.7",
+    "react-dev-utils": "^5.0.1",
+    "react-scripts-ts-cssmodules": "^0.9.1",
+    "stack-frame-mapper": "^0.4.0",
+    "stack-frame-parser": "^0.4.0",
+    "stack-frame-unmapper": "^0.4.0",
+    "tslint-lines-between-class-members": "^1.2.4",
+    "tslint-microsoft-contrib": "^5.1.0",
+    "tslint-react": "^3.6.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "jest": {
+    "setupFiles": [
+      "<rootDir>/src/test-shim.js",
+      "<rootDir>/src/test-setup.js"
+    ],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.(ts|tsx|js)$": "<rootDir>/src/test-preprocessor.js"
+    },
+    "testMatch": [
+      "**/__tests__/*.(ts|tsx|jsx|js)"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less)$": "identity-obj-proxy"
+    }
+  }
+}
