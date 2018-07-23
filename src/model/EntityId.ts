@@ -17,7 +17,7 @@
    /**
     * Generates new unique string ID.
     */
-   static generateWithString(): EntityId<string> {
+   static createForString(): EntityId<string> {
     return new EntityId<string>(newUUID());
    }
  }

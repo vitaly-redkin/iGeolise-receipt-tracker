@@ -9,18 +9,16 @@ import {EntityId} from '../EntityId';
 describe('Test Receipt class', () => {
   const COUNT: number = 10;
 
-  {
+  describe("Receipt creation test", () => {
     const {receipt, sum} = createReceipt(COUNT);
-    
-    describe("Receipt creation test", () => {
-      it('Receipt has ' + COUNT + ' of lines', () => {
-        expect(receipt.summary.count).toBe(COUNT);
-      });
-      it('Receipt total is ' + sum, () => {
-        expect(receipt.summary.sum).toBe(sum);
-      });
+    it('Receipt has ' + COUNT + ' of lines', () => {
+      expect(receipt.summary.count).toBe(COUNT);
     });
-  }
+    it('Receipt total is ' + sum, () => {
+      expect(receipt.summary.sum).toBe(sum);
+    });
+  });
+  
   describe("Line name update test", () => {
     const {receipt} = createReceipt(COUNT);
     const testLine: ReceiptLine = receipt.list[0];
@@ -88,7 +86,7 @@ describe('Test Receipt class', () => {
   describe("Non existing line update test", () => {
     const {receipt} = createReceipt(COUNT);
     const testLine: ReceiptLine = receipt.list[0];
-    const updatedLine = new ReceiptLine(EntityId.generateWithString(), testLine.name, testLine.amount);
+    const updatedLine = new ReceiptLine(EntityId.createForString(), testLine.name, testLine.amount);
     const lineAfterUpdate = receipt.updateLine(updatedLine);
     it('Line to update has been found', () => {
       expect(lineAfterUpdate === null).toBeTruthy();
@@ -101,8 +99,7 @@ describe('Test Receipt class', () => {
     const deletedLineAmount = testLine.amount;
     const oldReceiptSum = receipt.summary.sum;
     const oldReceiptCount = receipt.summary.count;
-    const deletedId: EntityId<string> = testLine.id;
-    const deletedFlag = receipt.deleteLine(deletedId);
+    const deletedFlag = receipt.delete(testLine);
     it('Line has been deleted', () => {
       expect(deletedFlag).toBeTruthy();
     });
@@ -116,10 +113,11 @@ describe('Test Receipt class', () => {
 
   describe("Non-existing line delete test", () => {
     const {receipt} = createReceipt(COUNT);
+    const testLine: ReceiptLine = receipt.list[0];
     const oldReceiptSum = receipt.summary.sum;
     const oldReceiptCount = receipt.summary.count;
-    const deletedId: EntityId<string> = EntityId.generateWithString();
-    const deletedFlag = receipt.deleteLine(deletedId);
+    const lineToDelete = new ReceiptLine(EntityId.createForString(), testLine.name, testLine.amount);
+    const deletedFlag = receipt.delete(lineToDelete);
     it('Line has NOT been deleted', () => {
       expect(deletedFlag).toBeFalsy();
     });
@@ -136,11 +134,13 @@ describe('Test Receipt class', () => {
  * Creates receipt with the given number of lines.
  * 
  * @param count Number of lines to create a receipt
+ * @param expenseType Receipt expense type
  * @returns object with the created reseipt and the total amount of lines 
  * calculated independently
  */
-export function createReceipt(count: number): { receipt: Receipt, sum: number}  {
-  const receipt: Receipt = new Receipt(EntityId.generateWithString(), "Food");
+export function createReceipt(count: number, expenseType: string = ""): 
+    { receipt: Receipt, sum: number}  {
+  const receipt: Receipt = new Receipt(EntityId.createForString(), expenseType);
   let sum: number = 0;
   for (let i = 0; i < count; i++)
   {

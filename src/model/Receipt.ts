@@ -34,10 +34,8 @@ export class Receipt extends BaseEntityWithAmountList<ReceiptLine, string>
    * @returns Added line
    */
   public addLine(): ReceiptLine {
-    const receipLine = new ReceiptLine(EntityId.generateWithString(), "", 0);
-    this.list.push(receipLine);
-    this.recalculateSummary();
-    return receipLine;
+    const receiptLine = new ReceiptLine(EntityId.createForString(), "", 0);
+    return super.add(receiptLine);
   }
 
   /**
@@ -64,23 +62,6 @@ export class Receipt extends BaseEntityWithAmountList<ReceiptLine, string>
       this.list[index] = receiptLine;
       this.recalculateSummary();
       return receiptLine;
-    }
-  }
-
-  /**
-   * Deletes receipt line with the given ID.
-   * 
-   * @param id ID of the receipt line to delete
-   * @returns true if the line has been deleted or false if it has not been found
-   */
-  public deleteLine(id: EntityId<string>): boolean {
-    const index = this.list.findIndex((item) => item.id.id === id.id);
-    if (index === -1) {
-      return false;
-    } else {
-      this.list.splice(index, 1);
-      this.recalculateSummary();
-      return true;
     }
   }
 }
