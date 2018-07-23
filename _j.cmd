@@ -1,1 +1,1 @@
-@node_modules/.bin/jest
+@node_modules/.bin/jest --runInBand
