@@ -7,8 +7,8 @@ import {IEntityWithAmount} from './IEntityWithAmount';
 import {EntityId} from './EntityId';
 import { EntityListSummary } from "./EntityListSummary";
 
-export class BaseEntityWithAmountList<EntityType extends IEntityWithAmount, IdType> 
-  extends BaseEntityList<EntityType extends IEntityWithAmount, IdType> {
+export class BaseEntityWithAmountList<TEntityType extends IEntityWithAmount, TIdType> 
+  extends BaseEntityList<TEntityType extends IEntityWithAmount, TIdType> {
 
   protected _summary: EntityListSummary = new EntityListSummary(0, 0);
 
@@ -25,7 +25,7 @@ export class BaseEntityWithAmountList<EntityType extends IEntityWithAmount, IdTy
    * @param expenseType Type of the expense the receipt covers
    */
   constructor(
-    public readonly id: EntityId<IdType>) {
+    public readonly id: EntityId<TIdType>) {
     super(id);
     this.recalculateSummary();
   }
@@ -36,7 +36,7 @@ export class BaseEntityWithAmountList<EntityType extends IEntityWithAmount, IdTy
    * 
    * @returns Added entity
    */
-  public add(entity: EntityType): EntityType {
+  public add(entity: TEntityType): TEntityType {
     this.list.push(entity);
     this.recalculateSummary();
     return entity;
@@ -48,7 +48,7 @@ export class BaseEntityWithAmountList<EntityType extends IEntityWithAmount, IdTy
    * @param entity Entity to delete to delete
    * @returns true if the entity has been deleted or false if it has not been found
    */
-  public delete(entity: EntityType): boolean {
+  public delete(entity: TEntityType): boolean {
     const index = this.list.findIndex((item) => item.id.id === entity.id.id);
     if (index === -1) {
       return false;

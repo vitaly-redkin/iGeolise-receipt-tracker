@@ -4,7 +4,8 @@
 
  export class EntityListSummary {
    /**
-    * Constructor
+    * Constructor.
+    * 
     * @param count Number of entities in the list.
     * @param sum Sum of the list entity amounts
     */

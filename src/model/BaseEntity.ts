@@ -4,11 +4,11 @@
 
  import {EntityId} from './EntityId';
 
-export class BaseEntity<IdType> {
+export class BaseEntity<TIdType> {
   /**
    * Constructor.
    * @param id ID of the entity
    */
-  constructor (public readonly id: EntityId<IdType>) {
+  constructor (public readonly id: EntityId<TIdType>) {
   }
 }

@@ -6,12 +6,12 @@
 
  import {newUUID} from './ModelUtils';
 
- export class EntityId<T> {
+ export class EntityId<TIdType> {
    /**
     * Constructor.
     * @param id ID to encapsulate
     */
-   public constructor (public readonly id: T) {
+   public constructor (public readonly id: TIdType) {
    }
 
    /**

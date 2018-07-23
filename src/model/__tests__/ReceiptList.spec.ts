@@ -22,6 +22,41 @@ describe('Test Receipt class', () => {
     });
   });
 
+  describe("Receipt addition test", () => {
+    const {receiptList} = createReceiptList(COUNT, MAX_LINE_COUNT);
+    const oldReceiptListSum = receiptList.summary.sum;
+    const oldReceiptListCount = receiptList.summary.count;
+    const randomExpenseType: string = "" + Math.random();
+    receiptList.addReceipt(randomExpenseType);
+    it('Receipt added to the list', () => {
+      expect(receiptList.summary.count === oldReceiptListCount + 1).toBeTruthy();
+    });
+    it('Receipt list total is unchanged', () => {
+      expect(receiptList.summary.sum).toBe(oldReceiptListSum);
+    });
+    it('Last Receipt in the list has our random expense type', () => {
+      expect(receiptList.list[receiptList.summary.count - 1].expenseType).toBe(randomExpenseType);
+    });
+  });
+
+  describe("Receipt deletion test", () => {
+    const {receiptList} = createReceiptList(COUNT, MAX_LINE_COUNT);
+    const oldReceiptListSum = receiptList.summary.sum;
+    const oldReceiptListCount = receiptList.summary.count;
+    const deletedReceipt = receiptList.list[0];
+    const deletedReceiptSum = deletedReceipt.summary.sum;
+    const deletedFlag: boolean = receiptList.deleteReceipt(deletedReceipt);
+    it('Receipt has been deleted', () => {
+      expect(deletedFlag).toBeTruthy();
+    });
+    it('Receipt list total decreased', () => {
+      expect(receiptList.summary.sum).toBe(oldReceiptListSum - deletedReceiptSum);
+    });
+    it('Receipt list count decreased', () => {
+      expect(receiptList.summary.count).toBe(oldReceiptListCount - 1);
+    });
+  });
+
   describe("Receipt expense type update test", () => {
     const {receiptList, sum} = createReceiptList(COUNT, MAX_LINE_COUNT);
     const receipt = receiptList.list[0];
@@ -63,7 +98,7 @@ describe('Test Receipt class', () => {
     it('Receipt list total was updated by ' + newAmount, () => {
       expect(receiptList.summary.sum - sum).toBe(newAmount);
     });
-});
+  });
 
   describe("Receipt Line amount update test", () => {
     const {receiptList, sum} = createReceiptList(COUNT, MAX_LINE_COUNT);

@@ -5,17 +5,17 @@
 import {BaseEntity} from './BaseEntity';
 import {EntityId} from './EntityId';
 
-export class BaseEntityList<EntityType, IdType> extends BaseEntity<IdType> {
+export class BaseEntityList<TEntityType, TIdType> extends BaseEntity<TIdType> {
   /**
    * List which contain child entities.
    */
-  public readonly list: EntityType[] = new Array<EntityType>();
+  public readonly list: TEntityType[] = new Array<TEntityType>();
 
   /**
    * Constructor.
    * @param id ID of the entity
    */
-  constructor (public readonly id: EntityId<IdType>) {
+  constructor (public readonly id: EntityId<TIdType>) {
     super(id);
   }
 }

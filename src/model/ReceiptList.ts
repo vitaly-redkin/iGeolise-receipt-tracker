@@ -14,7 +14,7 @@ export class ReceiptList extends BaseEntityWithAmountList<Receipt, string> {
    * @param expenseType Type of the expense the receipt covers
    */
   constructor(
-    public readonly id: EntityId<string>) {
+    public readonly id: EntityId<string> = EntityId.createForString()) {
     super(id);
     this.recalculateSummary();
   }
@@ -50,6 +50,17 @@ export class ReceiptList extends BaseEntityWithAmountList<Receipt, string> {
       this.list[index] = receipt;
       return receipt;
     }
+  }
+
+  /**
+   * Deletes receipt from the list.
+   * Added to make the class interface consistent - 
+   * themethod just calls the parent class delete() method.
+   * 
+   * @param receipt Receipt to delete
+   */
+  public deleteReceipt(receipt: Receipt): boolean {
+    return this.delete(receipt);
   }
 
   /**
