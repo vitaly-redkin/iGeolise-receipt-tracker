@@ -4,9 +4,10 @@
 
 import { Reducer } from 'redux';
 import { AppThunkAction } from '.';
-import { ReceiptList } from '../model/ReceiptList';
 import { Receipt } from '../model/Receipt';
 import { ReceiptLine } from '../model/ReceiptLine';
+import { ReceiptList } from '../model/ReceiptList';
+import * as ReceiptManager from '../model/ReceiptManager';
 
 /**
  * Interface for the receipt list state.
@@ -32,7 +33,7 @@ export enum ActionTypeEnum {
 
   ReceiptLineAdd = '@@RECEIPT_LINE/ADD',
   ReceiptLineDelete = '@@RECEIPT_LINE/DELETE',
-  ReceiptLineUpdate = '@@RECEIPT_LINE/UPDATE',
+  ReceiptLineUpdate = '@@RECEIPT_LINE/UPDATE'
 }
 
 // -----------------
@@ -44,7 +45,9 @@ export enum ActionTypeEnum {
  * Interface for the ReceiptAdd action.
  */
 interface IReceiptAddAction {
+  // tslint:disable
   type: ActionTypeEnum.ReceiptAdd;
+  // tslint:enable
   expenseType: string;
 }
 
@@ -52,7 +55,9 @@ interface IReceiptAddAction {
  * Interface for the ReceiptDelete action.
  */
 interface IReceiptDeleteAction {
+  // tslint:disable
   type: ActionTypeEnum.ReceiptDelete;
+  // tslint:enable
   receipt: Receipt;
 }
 
@@ -60,7 +65,9 @@ interface IReceiptDeleteAction {
  * Interface for the ReceiptUpdateExpenseType action.
  */
 interface IReceiptUpdateExpenseTypeAction {
+  // tslint:disable
   type: ActionTypeEnum.ReceiptUpdateExpenseType;
+  // tslint:enable
   receipt: Receipt;
   expenseType: string;
 }
@@ -69,7 +76,9 @@ interface IReceiptUpdateExpenseTypeAction {
  * Interface for the ReceiptLineAdd action.
  */
 interface IReceiptLineAddAction {
+  // tslint:disable
   type: ActionTypeEnum.ReceiptLineAdd;
+  // tslint:enable
   receipt: Receipt;
 }
 
@@ -77,7 +86,9 @@ interface IReceiptLineAddAction {
  * Interface for the ReceiptDelete action.
  */
 interface IReceiptLineDeleteAction {
+  // tslint:disable
   type: ActionTypeEnum.ReceiptLineDelete;
+  // tslint:enable
   receipt: Receipt;
   receiptLine: ReceiptLine;
 }
@@ -86,7 +97,9 @@ interface IReceiptLineDeleteAction {
  * Interface for the ReceiptLineUpdate action.
  */
 interface IReceiptLineUpdateAction {
+  // tslint:disable
   type: ActionTypeEnum.ReceiptLineUpdate;
+  // tslint:enable
   receipt: Receipt;
   receiptLine: ReceiptLine;
 }
@@ -95,7 +108,7 @@ interface IReceiptLineUpdateAction {
  * Declare a 'discriminated union' type. This guarantees that all references to 'type' properties contain one of the
  * declared type strings (and not any other arbitrary string).
  */
-export type KnownAction = 
+export type KnownAction =
   IReceiptAddAction | IReceiptDeleteAction | IReceiptUpdateExpenseTypeAction |
   IReceiptLineAddAction | IReceiptLineDeleteAction | IReceiptLineUpdateAction;
 
@@ -132,7 +145,7 @@ export const actionCreators = {
   updateReceiptLine: (receipt: Receipt, receiptLine: ReceiptLine): AppThunkAction<KnownAction> =>
       (dispatch: (action: KnownAction) => void): void => {
     dispatch({ type: ActionTypeEnum.ReceiptLineUpdate, receipt, receiptLine });
-  },
+  }
 };
 
 /**
@@ -151,39 +164,45 @@ export const reducer: Reducer<IReceiptListState> =
       case ActionTypeEnum.ReceiptAdd:
       {
         const action: IReceiptAddAction = <IReceiptAddAction> incomingAction;
-        state.receiptList.addReceipt(action.expenseType);
-        return { ...state, receiptList: state.receiptList };
+
+        return composeState(state, ReceiptManager.addReceipt(
+          state.receiptList, action.expenseType));
       }
       case ActionTypeEnum.ReceiptDelete:
       {
         const action: IReceiptDeleteAction = <IReceiptDeleteAction> incomingAction;
-        state.receiptList.deleteReceipt(action.receipt);
-        return { ...state, receiptList: state.receiptList };
+
+        return composeState(state, ReceiptManager.deleteReceipt(
+          state.receiptList, action.receipt));
       }
       case ActionTypeEnum.ReceiptUpdateExpenseType:
       {
         const action: IReceiptUpdateExpenseTypeAction = <IReceiptUpdateExpenseTypeAction> incomingAction;
-        state.receiptList.updateReceiptExpenseType(action.receipt, action.expenseType);
-        return { ...state, receiptList: state.receiptList };
+
+        return composeState(state, ReceiptManager.updateReceiptExpenseType(
+          state.receiptList, action.receipt, action.expenseType));
       }
       // Receipt line actions
       case ActionTypeEnum.ReceiptLineAdd:
       {
         const action: IReceiptLineAddAction = <IReceiptLineAddAction> incomingAction;
-        state.receiptList.addReceiptLine(action.receipt);
-        return { ...state, receiptList: state.receiptList };
+
+        return composeState(state, ReceiptManager.addReceiptLine(
+          state.receiptList, action.receipt));
       }
       case ActionTypeEnum.ReceiptLineDelete:
       {
         const action: IReceiptLineDeleteAction = <IReceiptLineDeleteAction> incomingAction;
-        state.receiptList.deleteReceiptLine(action.receipt, action.receiptLine);
-        return { ...state, receiptList: state.receiptList };
+
+        return composeState(state, ReceiptManager.deleteReceiptLine(
+          state.receiptList, action.receipt, action.receiptLine));
       }
       case ActionTypeEnum.ReceiptLineUpdate:
       {
         const action: IReceiptLineUpdateAction = <IReceiptLineUpdateAction> incomingAction;
-        state.receiptList.updateReceiptLine(action.receipt, action.receiptLine);
-        return { ...state, receiptList: state.receiptList };
+
+        return composeState(state, ReceiptManager.updateReceiptLine(
+          state.receiptList, action.receipt, action.receiptLine));
       }
       default:
         // Do nothing - the final return will work
@@ -193,3 +212,15 @@ export const reducer: Reducer<IReceiptListState> =
     //  (or default initial state if none was supplied)
     return state || initialState;
   };
+
+  /**
+   * Composes state to return fr0m reducers.
+   *
+   * @param state Current state
+   * @param receiptList New receipt list to use in the state
+   */
+function composeState(
+    state: IReceiptListState,
+    receiptList: ReceiptList): IReceiptListState  {
+  return { ...state, receiptList };
+}

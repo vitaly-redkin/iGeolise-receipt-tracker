@@ -40,7 +40,10 @@
     "match-default-export-name": false,
     "no-unsafe-any": false,
     "strict-boolean-expressions": false,
-    "react-a11y-anchors": false
+    "react-a11y-anchors": false,
+
+    "no-parameter-properties": false,
+    "no-increment-decrement": false
   },
   "rulesDirectory": [
     "node_modules/tslint-lines-between-class-members"

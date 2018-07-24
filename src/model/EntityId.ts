@@ -1,6 +1,6 @@
 /**
  * Class to encapsulate enity IDs.
- * 
+ *
  * Haoyi teaches us to box ID fields into separate classes:-)
  */
 
@@ -17,7 +17,7 @@
    /**
     * Generates new unique string ID.
     */
-   static createForString(): EntityId<string> {
+   public static CREATE_FOR_STRING(): EntityId<string> {
     return new EntityId<string>(newUUID());
    }
  }

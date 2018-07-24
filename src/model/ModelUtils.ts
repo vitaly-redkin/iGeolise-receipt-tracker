@@ -1,7 +1,7 @@
 /**
  * Module to contain utility functions for the models.
- * 
- * Haoyi teaches us: 
+ *
+ * Haoyi teaches us:
  * "The simplest interface to a package is static method with standard types":-)
  */
 

@@ -9,7 +9,7 @@ export class BaseEntityList<TEntityType, TIdType> extends BaseEntity<TIdType> {
   /**
    * List which contain child entities.
    */
-  public readonly list: TEntityType[] = new Array<TEntityType>();
+  public readonly list: TEntityType[] = [];
 
   /**
    * Constructor.
