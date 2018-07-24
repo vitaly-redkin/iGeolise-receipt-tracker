@@ -4,23 +4,23 @@
 
 import { Reducer } from 'redux';
 import { AppThunkAction } from '.';
-import { Receipt } from '../model/Receipt';
-import { ReceiptLine } from '../model/ReceiptLine';
-import { ReceiptList } from '../model/ReceiptList';
+import { ReceiptEntity } from '../model/ReceiptEntity';
+import { ReceiptLineEntity } from '../model/ReceiptLineEntity';
+import { ReceiptListEntity } from '../model/ReceiptListEntity';
 import * as ReceiptManager from '../model/ReceiptManager';
 
 /**
  * Interface for the receipt list state.
  */
 export interface IReceiptListState {
-  receiptList: ReceiptList;
+  receiptList: ReceiptListEntity;
 }
 
 /**
  * Initial receipt list state,
  */
 export const initialState: IReceiptListState = {
-  receiptList: new ReceiptList()
+  receiptList: new ReceiptListEntity()
 };
 
 /**
@@ -58,7 +58,7 @@ interface IReceiptDeleteAction {
   // tslint:disable
   type: ActionTypeEnum.ReceiptDelete;
   // tslint:enable
-  receipt: Receipt;
+  receipt: ReceiptEntity;
 }
 
 /**
@@ -68,7 +68,7 @@ interface IReceiptUpdateExpenseTypeAction {
   // tslint:disable
   type: ActionTypeEnum.ReceiptUpdateExpenseType;
   // tslint:enable
-  receipt: Receipt;
+  receipt: ReceiptEntity;
   expenseType: string;
 }
 
@@ -79,7 +79,7 @@ interface IReceiptLineAddAction {
   // tslint:disable
   type: ActionTypeEnum.ReceiptLineAdd;
   // tslint:enable
-  receipt: Receipt;
+  receipt: ReceiptEntity;
 }
 
 /**
@@ -89,8 +89,8 @@ interface IReceiptLineDeleteAction {
   // tslint:disable
   type: ActionTypeEnum.ReceiptLineDelete;
   // tslint:enable
-  receipt: Receipt;
-  receiptLine: ReceiptLine;
+  receipt: ReceiptEntity;
+  receiptLine: ReceiptLineEntity;
 }
 
 /**
@@ -100,8 +100,8 @@ interface IReceiptLineUpdateAction {
   // tslint:disable
   type: ActionTypeEnum.ReceiptLineUpdate;
   // tslint:enable
-  receipt: Receipt;
-  receiptLine: ReceiptLine;
+  receipt: ReceiptEntity;
+  receiptLine: ReceiptLineEntity;
 }
 
 /**
@@ -116,36 +116,51 @@ export type KnownAction =
  * ACTION CREATORS - These are functions exposed to UI components that will trigger a state transition.
  * They don't directly mutate state, but they can have external side-effects (such as loading data)
  */
-export const actionCreators = {
+const actionCreators = {
   addReceipt: (expenseType: string): AppThunkAction <KnownAction> =>
       (dispatch: (action: KnownAction) => void): void => {
     dispatch({ type: ActionTypeEnum.ReceiptAdd, expenseType });
   },
 
-  deleteReceipt: (receipt: Receipt): AppThunkAction<KnownAction> =>
+  deleteReceipt: (receipt: ReceiptEntity): AppThunkAction<KnownAction> =>
       (dispatch: (action: KnownAction) => void): void => {
     dispatch({ type: ActionTypeEnum.ReceiptDelete, receipt });
   },
 
-  updateReceiptExpenseType: (receipt: Receipt, expenseType: string): AppThunkAction<KnownAction> =>
+  updateReceiptExpenseType: (receipt: ReceiptEntity, expenseType: string): AppThunkAction<KnownAction> =>
       (dispatch: (action: KnownAction) => void): void => {
     dispatch({ type: ActionTypeEnum.ReceiptUpdateExpenseType, receipt, expenseType });
   },
 
-  addReceiptLine: (receipt: Receipt): AppThunkAction <KnownAction> =>
+  addReceiptLine: (receipt: ReceiptEntity): AppThunkAction <KnownAction> =>
       (dispatch: (action: KnownAction) => void): void => {
     dispatch({ type: ActionTypeEnum.ReceiptLineAdd, receipt });
   },
 
-  deleteReceiptLine: (receipt: Receipt, receiptLine: ReceiptLine): AppThunkAction<KnownAction> =>
+  deleteReceiptLine: (receipt: ReceiptEntity, receiptLine: ReceiptLineEntity): AppThunkAction<KnownAction> =>
       (dispatch: (action: KnownAction) => void): void => {
     dispatch({ type: ActionTypeEnum.ReceiptLineDelete, receipt, receiptLine });
   },
 
-  updateReceiptLine: (receipt: Receipt, receiptLine: ReceiptLine): AppThunkAction<KnownAction> =>
+  updateReceiptLine: (receipt: ReceiptEntity, receiptLine: ReceiptLineEntity): AppThunkAction<KnownAction> =>
       (dispatch: (action: KnownAction) => void): void => {
     dispatch({ type: ActionTypeEnum.ReceiptLineUpdate, receipt, receiptLine });
   }
+};
+
+export const addReceiptActionCreator = {
+  addReceipt: actionCreators.addReceipt
+};
+
+export const receiptActionCreators = {
+  updateReceiptExpenseType: actionCreators.updateReceiptExpenseType,
+  deleteReceipt: actionCreators.deleteReceipt,
+  addReceiptLine: actionCreators.addReceiptLine
+};
+
+export const receiptLineActionCreators = {
+  updateReceiptLine: actionCreators.updateReceiptLine,
+  deleteReceiptLine: actionCreators.deleteReceiptLine
 };
 
 /**
@@ -221,6 +236,6 @@ export const reducer: Reducer<IReceiptListState> =
    */
 function composeState(
     state: IReceiptListState,
-    receiptList: ReceiptList): IReceiptListState  {
+    receiptList: ReceiptListEntity): IReceiptListState  {
   return { ...state, receiptList };
 }

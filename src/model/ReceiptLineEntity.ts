@@ -6,7 +6,7 @@ import { BaseEntity } from './BaseEntity';
 import { EntityId } from './EntityId';
 import { IEntityWithIdAndAmount } from './IEntityWithIdAndAmount';
 
-export class ReceiptLine extends BaseEntity<string> implements IEntityWithIdAndAmount {
+export class ReceiptLineEntity extends BaseEntity<string> implements IEntityWithIdAndAmount {
   /**
    * Constructor.
    *

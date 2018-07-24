@@ -4,9 +4,9 @@
 
 import { BaseEntityWithAmountList } from './BaseEntityWithAmountList';
 import { EntityId } from './EntityId';
-import { Receipt } from './Receipt';
+import { ReceiptEntity } from './ReceiptEntity';
 
-export class ReceiptList extends BaseEntityWithAmountList<Receipt> {
+export class ReceiptListEntity extends BaseEntityWithAmountList<ReceiptEntity> {
   /**
    * Constructor.
    * @param id ID of the receipt

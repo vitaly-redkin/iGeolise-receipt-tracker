@@ -1,0 +1,10 @@
+.Footer
+{
+  display: flex;
+  flex-direction: row;
+}
+
+.Footer div
+{
+  padding: 5px;
+}

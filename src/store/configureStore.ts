@@ -7,7 +7,7 @@ import {
   Reducer, ReducersMapObject, Store, StoreEnhancerStoreCreator
 } from 'redux';
 import reduxThunk from 'redux-thunk';
-import {IApplicationState, initialState, reducers } from '.';
+import { IApplicationState, initialState, reducers } from '.';
 
 /**
  * Types for the application Redux store.

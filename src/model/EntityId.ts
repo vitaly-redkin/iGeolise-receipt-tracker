@@ -4,7 +4,7 @@
  * Haoyi teaches us to box ID fields into separate classes:-)
  */
 
- import {newUUID} from './ModelUtils';
+ import { newUUID } from './ModelUtils';
 
  export class EntityId<TIdType> {
    /**

@@ -5,9 +5,9 @@
 import { BaseEntityWithAmountList } from './BaseEntityWithAmountList';
 import { EntityId } from './EntityId';
 import { IEntityWithIdAndAmount } from './IEntityWithIdAndAmount';
-import { ReceiptLine } from './ReceiptLine';
+import { ReceiptLineEntity } from './ReceiptLineEntity';
 
-export class Receipt extends BaseEntityWithAmountList<ReceiptLine>
+export class ReceiptEntity extends BaseEntityWithAmountList<ReceiptLineEntity>
   implements IEntityWithIdAndAmount {
 
   /**

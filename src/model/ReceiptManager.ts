@@ -5,12 +5,12 @@
  * "The simplest interface to a package is static method with standard types":-)
  */
 
-import {EntityId} from './EntityId';
+import { EntityId } from './EntityId';
 import { EntityListSummary } from './EntityListSummary';
-import {IEntityWithIdAndAmount} from './IEntityWithIdAndAmount';
-import {Receipt} from './Receipt';
-import {ReceiptLine} from './ReceiptLine';
-import {ReceiptList} from './ReceiptList';
+import { IEntityWithIdAndAmount } from './IEntityWithIdAndAmount';
+import { ReceiptEntity } from './ReceiptEntity';
+import { ReceiptLineEntity } from './ReceiptLineEntity';
+import { ReceiptListEntity } from './ReceiptListEntity';
 
 // ----------
 // Public API
@@ -22,9 +22,11 @@ import {ReceiptList} from './ReceiptList';
  * @param expenseType Receipt expense type
  * @returns New receipt list
  */
-export function addReceipt(receiptList: ReceiptList, expenseType: string): ReceiptList {
-  const receipt: Receipt = new Receipt(EntityId.CREATE_FOR_STRING(), expenseType);
-  const list: Receipt[] = addEntityToList<Receipt>(receiptList.list, receipt);
+export function addReceipt(
+    receiptList: ReceiptListEntity,
+    expenseType: string): ReceiptListEntity {
+  const receipt: ReceiptEntity = new ReceiptEntity(EntityId.CREATE_FOR_STRING(), expenseType);
+  const list: ReceiptEntity[] = addEntityToList<ReceiptEntity>(receiptList.list, receipt);
   const summary: EntityListSummary = createListSummary(list);
 
   return {...receiptList, list, summary };
@@ -37,8 +39,11 @@ export function addReceipt(receiptList: ReceiptList, expenseType: string): Recei
  * @param receipt Receipt to delete
  * @returns New receipt list
  */
-export function deleteReceipt(receiptList: ReceiptList, receipt: Receipt): ReceiptList {
-  const list: Receipt[] = deleteEntityFromList<Receipt>(receiptList.list, receipt);
+export function deleteReceipt(
+  receiptList: ReceiptListEntity,
+  receipt: ReceiptEntity): ReceiptListEntity {
+  const list: ReceiptEntity[] = deleteEntityFromList<ReceiptEntity>(
+    receiptList.list, receipt);
   const summary: EntityListSummary = createListSummary(list);
 
   return {...receiptList, list, summary };
@@ -53,18 +58,18 @@ export function deleteReceipt(receiptList: ReceiptList, receipt: Receipt): Recei
  * @returns New receipt list
  */
 export function updateReceiptExpenseType(
-    receiptList: ReceiptList,
-    receipt: Receipt,
-    expenseType: string): ReceiptList {
-  const index: number = findEntityIndex<Receipt>(receiptList.list, receipt);
+    receiptList: ReceiptListEntity,
+    receipt: ReceiptEntity,
+    expenseType: string): ReceiptListEntity {
+  const index: number = findEntityIndex<ReceiptEntity>(receiptList.list, receipt);
   if (index === -1) { return receiptList; }
 
-  const receiptToUpdate: Receipt = receiptList.list[index];
+  const receiptToUpdate: ReceiptEntity = receiptList.list[index];
   if (receiptToUpdate.expenseType === expenseType) {
     return receiptList;
   } else {
-    const newReceipt: Receipt = {...receiptToUpdate, expenseType};
-    const list: Receipt[] = replaceEntityInList<Receipt>(receiptList.list, newReceipt);
+    const newReceipt: ReceiptEntity = {...receiptToUpdate, expenseType};
+    const list: ReceiptEntity[] = replaceEntityInList<ReceiptEntity>(receiptList.list, newReceipt);
 
     return {...receiptList, list };
   }
@@ -77,9 +82,13 @@ export function updateReceiptExpenseType(
  * @param receipt Receipt to add the line to
  * @returns New receipt list
  */
-export function addReceiptLine(receiptList: ReceiptList, receipt: Receipt): ReceiptList {
-  const receiptLine: ReceiptLine = new ReceiptLine(EntityId.CREATE_FOR_STRING(), '', 0);
-  const listOfLines: ReceiptLine[] = addEntityToList<ReceiptLine>(receipt.list, receiptLine);
+export function addReceiptLine(
+    receiptList: ReceiptListEntity,
+    receipt: ReceiptEntity): ReceiptListEntity {
+  const receiptLine: ReceiptLineEntity = new ReceiptLineEntity(
+    EntityId.CREATE_FOR_STRING(), '', 0);
+  const listOfLines: ReceiptLineEntity[] = addEntityToList<ReceiptLineEntity>(
+    receipt.list, receiptLine);
 
   return replaceLinesInReceipt(receiptList, receipt, listOfLines, false);
 }
@@ -92,10 +101,10 @@ export function addReceiptLine(receiptList: ReceiptList, receipt: Receipt): Rece
  * @returns New receipt list
  */
 export function updateReceiptLine(
-    receiptList: ReceiptList,
-    receipt: Receipt,
-    receiptLine: ReceiptLine): ReceiptList {
-  const listOfLines: ReceiptLine[] = replaceEntityInList<ReceiptLine>(
+    receiptList: ReceiptListEntity,
+    receipt: ReceiptEntity,
+    receiptLine: ReceiptLineEntity): ReceiptListEntity {
+  const listOfLines: ReceiptLineEntity[] = replaceEntityInList<ReceiptLineEntity>(
     receipt.list, receiptLine);
 
   return replaceLinesInReceipt(receiptList, receipt, listOfLines);
@@ -108,10 +117,11 @@ export function updateReceiptLine(
  * @returns true if the line has been deleted or false if it has not been found
  */
 export function deleteReceiptLine(
-    receiptList: ReceiptList,
-    receipt: Receipt,
-    receiptLine: ReceiptLine): ReceiptList {
-  const listOfLines: ReceiptLine[] = deleteEntityFromList<ReceiptLine>(receipt.list, receiptLine);
+    receiptList: ReceiptListEntity,
+    receipt: ReceiptEntity,
+    receiptLine: ReceiptLineEntity): ReceiptListEntity {
+  const listOfLines: ReceiptLineEntity[] = deleteEntityFromList<ReceiptLineEntity>(
+    receipt.list, receiptLine);
 
   return replaceLinesInReceipt(receiptList, receipt, listOfLines);
 }
@@ -144,14 +154,14 @@ return new EntityListSummary(count, sum);
  * @returns New receipt list
  */
 function replaceLinesInReceipt(
-    receiptList: ReceiptList,
-    receipt: Receipt,
-    listOfLines: ReceiptLine[],
-    recaclulateReceiptListSummary: boolean = true): ReceiptList {
+    receiptList: ReceiptListEntity,
+    receipt: ReceiptEntity,
+    listOfLines: ReceiptLineEntity[],
+    recaclulateReceiptListSummary: boolean = true): ReceiptListEntity {
   const receiptSummary: EntityListSummary = createListSummary(listOfLines);
-  const newReceipt: Receipt = {
+  const newReceipt: ReceiptEntity = {
     ...receipt, list: listOfLines, summary: receiptSummary, amount: receiptSummary.sum};
-  const listOfReceipts: Receipt[] = replaceEntityInList<Receipt>(receiptList.list, newReceipt);
+  const listOfReceipts: ReceiptEntity[] = replaceEntityInList<ReceiptEntity>(receiptList.list, newReceipt);
   const receiptListSummary: EntityListSummary =
     (recaclulateReceiptListSummary ? createListSummary(listOfReceipts) : receiptList.summary);
 

@@ -2,7 +2,7 @@
  * Base class for all entities.
  */
 
-import {EntityId} from './EntityId';
+import { EntityId } from './EntityId';
 
 export class BaseEntity<TIdType> {
   /**

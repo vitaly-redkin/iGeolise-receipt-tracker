@@ -2,7 +2,7 @@
  * Interface to implement if the entity has id and amount fields.
  */
 
- import {EntityId} from "./EntityId";
+ import { EntityId } from "./EntityId";
 
  export interface IEntityWithIdAndAmount {
    /**

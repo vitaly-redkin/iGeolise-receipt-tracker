@@ -2,10 +2,10 @@
  * Base class for classes which contain list of enities with amounts.
  */
 
-import {BaseEntityList} from './BaseEntityList';
-import {EntityId} from './EntityId';
-import {EntityListSummary} from './EntityListSummary';
-import {IEntityWithIdAndAmount} from './IEntityWithIdAndAmount';
+import { BaseEntityList } from './BaseEntityList';
+import { EntityId } from './EntityId';
+import { EntityListSummary } from './EntityListSummary';
+import { IEntityWithIdAndAmount } from './IEntityWithIdAndAmount';
 
 export class BaseEntityWithAmountList<TEntityType extends IEntityWithIdAndAmount>
   extends BaseEntityList<TEntityType, string> {

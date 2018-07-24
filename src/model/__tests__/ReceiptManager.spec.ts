@@ -3,10 +3,10 @@
  */
 
 import * as ReceiptManager from '../ReceiptManager';
-import {ReceiptList} from '../ReceiptList';
-import {Receipt} from '../Receipt';
-import {ReceiptLine} from '../ReceiptLine';
-import {EntityId} from '../EntityId';
+import { ReceiptListEntity } from '../ReceiptListEntity';
+import { ReceiptEntity } from '../ReceiptEntity';
+import { ReceiptLineEntity } from '../ReceiptLineEntity';
+import { EntityId } from '../EntityId';
 
 describe('Test Receipt class', () => {
   const COUNT: number = 10;
@@ -25,7 +25,8 @@ describe('Test Receipt class', () => {
   describe("Receipt addition test", () => {
     const {receiptList} = createReceiptList(COUNT, MAX_LINE_COUNT);
     const randomExpenseType: string = "" + Math.random();
-    const newReceiptList: ReceiptList = ReceiptManager.addReceipt(receiptList, randomExpenseType);
+    const newReceiptList: ReceiptListEntity = ReceiptManager.addReceipt(
+      receiptList, randomExpenseType);
     it('New receipt list object is not the same as an old one', () => {
       expect(newReceiptList !== receiptList).toBeTruthy();
     });
@@ -43,7 +44,7 @@ describe('Test Receipt class', () => {
   describe("Receipt deletion test", () => {
     const {receiptList} = createReceiptList(COUNT, MAX_LINE_COUNT);
     const deletedReceipt = receiptList.list[0];
-    const newReceiptList: ReceiptList = ReceiptManager.deleteReceipt(
+    const newReceiptList: ReceiptListEntity = ReceiptManager.deleteReceipt(
       receiptList, deletedReceipt);
     it('New receipt list object is not the same as an old one', () => {
         expect(newReceiptList !== receiptList).toBeTruthy();
@@ -58,11 +59,11 @@ describe('Test Receipt class', () => {
 
   describe("Receipt expense type update test", () => {
     const {receiptList} = createReceiptList(COUNT, MAX_LINE_COUNT);
-    const receipt: Receipt = receiptList.list[0];
+    const receipt: ReceiptEntity = receiptList.list[0];
     const newExpenseType: string = receipt.expenseType + " UPDATED";
-    const newReceiptList: ReceiptList = ReceiptManager.updateReceiptExpenseType(
+    const newReceiptList: ReceiptListEntity = ReceiptManager.updateReceiptExpenseType(
       receiptList, receipt, newExpenseType);
-    const newReceipt: Receipt = newReceiptList.list[0];
+    const newReceipt: ReceiptEntity = newReceiptList.list[0];
     it('New receipt list object is not the same as an old one', () => {
       expect(newReceiptList !== receiptList).toBeTruthy();
       });
@@ -79,15 +80,13 @@ describe('Test Receipt class', () => {
 
   describe("Receipt line addition test", () => {
     const {receiptList} = createReceiptList(COUNT, MAX_LINE_COUNT);
-    const receipt: Receipt = receiptList.list[0];
-    const newReceiptList: ReceiptList = ReceiptManager.addReceiptLine(
+    const receipt: ReceiptEntity = receiptList.list[0];
+    const newReceiptList: ReceiptListEntity = ReceiptManager.addReceiptLine(
       receiptList, receipt);
-    const newReceipt: Receipt = newReceiptList.list[0];  
-/* TO DO: not sure if this one should work      
+    const newReceipt: ReceiptEntity = newReceiptList.list[0];  
     it('New receipt list object is not the same as an old one', () => {
       expect(newReceiptList !== receiptList).toBeTruthy();
       });
-*/      
     it('New receipt object is not the same as an old one', () => {
       expect(newReceipt !== receipt).toBeTruthy();
     });
@@ -98,21 +97,20 @@ describe('Test Receipt class', () => {
 
   describe("Receipt Line amount update test", () => {
     const {receiptList, sum} = createReceiptList(COUNT, MAX_LINE_COUNT);
-    const receipt: Receipt = receiptList.list[0];
-    const receiptLine: ReceiptLine = receipt.list[0];
+    const receipt: ReceiptEntity = receiptList.list[0];
+    const receiptLine: ReceiptLineEntity = receipt.list[0];
     const delta: number = 123;
     const newAmount: number = receiptLine.amount + delta;
     const newName: string = receiptLine.name + " UPDATED";
-    const updatedReceiptLine: ReceiptLine = new ReceiptLine(receiptLine.id, newName, newAmount);
-    const newReceiptList: ReceiptList = ReceiptManager.updateReceiptLine(
+    const updatedReceiptLine: ReceiptLineEntity = new ReceiptLineEntity(
+      receiptLine.id, newName, newAmount);
+    const newReceiptList: ReceiptListEntity = ReceiptManager.updateReceiptLine(
       receiptList, receipt, updatedReceiptLine);
-    const newReceipt: Receipt = newReceiptList.list[0];  
-    const newReceiptLine: ReceiptLine = newReceipt.list[0];
-/* TO DO: not sure if this one should work      
+    const newReceipt: ReceiptEntity = newReceiptList.list[0];  
+    const newReceiptLine: ReceiptLineEntity = newReceipt.list[0];
     it('New receipt list object is not the same as an old one', () => {
-      expect(newReceiptList !== receiptList).toBeTruthy;
+      expect(newReceiptList !== receiptList).toBeTruthy();
       });
-*/      
     it('New receipt object is not the same as an old one', () => {
       expect(newReceipt !== receipt).toBeTruthy();
     });
@@ -135,16 +133,14 @@ describe('Test Receipt class', () => {
 
   describe("Receipt Line delete test", () => {
     const {receiptList, sum} = createReceiptList(COUNT, MAX_LINE_COUNT);
-    const receipt: Receipt = receiptList.list[0];
-    const receiptLine: ReceiptLine = receipt.list[0];
-    const newReceiptList: ReceiptList = ReceiptManager.deleteReceiptLine(
+    const receipt: ReceiptEntity = receiptList.list[0];
+    const receiptLine: ReceiptLineEntity = receipt.list[0];
+    const newReceiptList: ReceiptListEntity = ReceiptManager.deleteReceiptLine(
       receiptList, receipt, receiptLine);
-    const newReceipt: Receipt = newReceiptList.list[0];  
-/* TO DO: not sure if this one should work      
+    const newReceipt: ReceiptEntity = newReceiptList.list[0];  
     it('New receipt list object is not the same as an old one', () => {
-      expect(newReceiptList !== receiptList).toBeTruthy;
+      expect(newReceiptList !== receiptList).toBeTruthy();
       });
-*/      
     it('New receipt object is not the same as an old one', () => {
       expect(newReceipt !== receipt).toBeTruthy();
     });
@@ -169,8 +165,8 @@ describe('Test Receipt class', () => {
  * calculated independently
  */
 function createReceiptList(receiptCount: number, maxLineCount: number): 
-    { receiptList: ReceiptList, sum: number}  {
-  const receiptList: ReceiptList = new ReceiptList();
+    { receiptList: ReceiptListEntity, sum: number}  {
+  const receiptList: ReceiptListEntity = new ReceiptListEntity();
   let total: number = 0;
   for (let i = 0; i < receiptCount; i++)
   {
@@ -180,7 +176,7 @@ function createReceiptList(receiptCount: number, maxLineCount: number):
     receiptList.list.push(receipt);
     total += sum;
   }
-  receiptList.summary = ReceiptManager.createListSummary<Receipt>(receiptList.list);
+  receiptList.summary = ReceiptManager.createListSummary<ReceiptEntity>(receiptList.list);
   return { receiptList, sum: total};
 }
 
@@ -193,19 +189,19 @@ function createReceiptList(receiptCount: number, maxLineCount: number):
  * calculated independently
  */
 function createReceipt(count: number, expenseType: string = ""): 
-    { receipt: Receipt, sum: number}  {
+    { receipt: ReceiptEntity, sum: number}  {
   let sum = 0;
   for (let i = 0; i < count; i++)
   {
     sum += (i + 1) * 100;
   }
-  const receipt: Receipt = new Receipt(EntityId.CREATE_FOR_STRING(), expenseType, sum);
+  const receipt: ReceiptEntity = new ReceiptEntity(EntityId.CREATE_FOR_STRING(), expenseType, sum);
   for (let i = 0; i < count; i++)
   {
     const name = 'Line ' + (i + 1);
     const amount = (i + 1) * 100;
-    receipt.list.push(new ReceiptLine(EntityId.CREATE_FOR_STRING(), name, amount));
+    receipt.list.push(new ReceiptLineEntity(EntityId.CREATE_FOR_STRING(), name, amount));
   }
-  receipt.summary = ReceiptManager.createListSummary<ReceiptLine>(receipt.list);
+  receipt.summary = ReceiptManager.createListSummary<ReceiptLineEntity>(receipt.list);
   return { receipt, sum};
 }

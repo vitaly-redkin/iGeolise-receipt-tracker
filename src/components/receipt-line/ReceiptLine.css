@@ -1,0 +1,14 @@
+.ReceiptLine
+{
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 5px;
+  border-top: #ccc 1px solid;
+  border-bottom: ccc 1px solid;
+  padding-bottom: 5px;
+}
+
+.ReceiptLine div
+{
+  padding: 5px;
+}
