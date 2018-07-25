@@ -18,7 +18,7 @@ import * as styles from './Main.css';
 type MainProps = (ReceiptListEntity);
 
 class Main extends React.PureComponent<MainProps, {}> {
-  // Reference of the dummy DIV to scroll to
+  // Reference of the dummy DIV to scroll to  when new receipt has been added
   private dummyDivRef: HTMLDivElement;
 
   public render(): JSX.Element {
@@ -40,7 +40,7 @@ class Main extends React.PureComponent<MainProps, {}> {
   /**
    * Called when component is updated.
    * If a new receipt has been added scrolls to the dummy div
-   * placee after the receipt list.
+   * placed after the receipt list.
    *
    * @param prevProps Component previous properties
    */

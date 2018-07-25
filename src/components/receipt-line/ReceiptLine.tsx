@@ -105,12 +105,10 @@ class ReceiptLine extends React.PureComponent<ReceiptLineProps, IReceiptLineStat
   private amountChanged = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const name: string = this.props.receiptLine.name;
     const amount: number =  parseFloat(e.target.value.trim());
-    if (isNaN(amount) || amount < 0) {
-      this.setState({invalidAmountFlag: true});
-    } else {
-      this.setState({invalidAmountFlag: false});
-      this.updateReceiptLine(name, amount);
-    }
+    const invalidAmountFlag: boolean = (isNaN(amount) || amount < 0);
+
+    this.setState({invalidAmountFlag});
+    this.updateReceiptLine(name, (invalidAmountFlag ? 0 : amount));
   }
 
   /**

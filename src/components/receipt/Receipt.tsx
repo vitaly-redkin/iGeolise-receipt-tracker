@@ -25,6 +25,9 @@ type ReceiptProps =
    & typeof receiptActionCreators);
 
 class Receipt extends React.PureComponent<ReceiptProps, {}> {
+  // Reference of the dummy DIV to scroll to  when new receipt has been added
+  private dummyDivRef: HTMLDivElement;
+
   public render(): JSX.Element {
     return (
       <Card id={`receipt_${this.props.receipt.id.id}`} className='pr-0 mb-4'>
@@ -94,10 +97,23 @@ class Receipt extends React.PureComponent<ReceiptProps, {}> {
               </u></strong>
             </Col>
           </Row >
+          <div ref={this.setDummyDivRef} />
         </CardBody>
 
       </Card>
     );
+  }
+
+  /**
+   * Called when component is updated.
+   * If a new receipt line has been added scrolls to the bottom-most div.
+   *
+   * @param prevProps Component previous properties
+   */
+  public componentDidUpdate(prevProps: ReceiptProps) {
+    if (prevProps.receipt.summary.count < this.props.receipt.summary.count) {
+      this.scrollToBottom();
+    }
   }
 
   /**
@@ -121,7 +137,23 @@ class Receipt extends React.PureComponent<ReceiptProps, {}> {
     const expenseType = (e.target as any).innerText;
     // tslint:enable
     this.props.updateReceiptExpenseType(this.props.receipt, expenseType);
-}
+  }
+
+  /**
+   * Sets reference to the dummy DIV.
+   *
+   * @param div Dummy DIV to set the reference to
+   */
+  private setDummyDivRef = (div: HTMLDivElement): void => {
+    this.dummyDivRef = div;
+  }
+
+  /**
+   * Scrols the receipt list to bottom.
+   */
+  private scrollToBottom = () => {
+    this.dummyDivRef.scrollIntoView({ behavior: 'smooth' });
+  }
 }
 
 // Redux-Wrapped component
