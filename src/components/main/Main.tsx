@@ -15,9 +15,7 @@ import ReceiptList from '../receipt-list/ReceiptList';
 import * as styles from './Main.css';
 
 // Component properties type
-type MainProps =
-  (ReceiptListEntity
-   & React.Props<{}>);
+type MainProps = (ReceiptListEntity);
 
 class Main extends React.PureComponent<MainProps, {}> {
   // Reference of the dummy DIV to scroll to
@@ -26,21 +24,23 @@ class Main extends React.PureComponent<MainProps, {}> {
   public render(): JSX.Element {
     return (
       <Container className={styles.Container}>
-          <Card className='w-100 h-100'>
-            <CardBody className={styles.CardBody}>
-              <ReceiptList/>
-              <div ref={this.setDummyDivRef}></div>
-            </CardBody>
-            <CardFooter className='pr-0'>
-              <Footer/>
-            </CardFooter>
-          </Card>
+        <Card className='w-100 h-100'>
+          <CardBody className={styles.CardBody}>
+            <ReceiptList/>
+            <div ref={this.setDummyDivRef} />
+          </CardBody>
+          <CardFooter className='pr-0'>
+            <Footer/>
+          </CardFooter>
+        </Card>
       </Container>
     );
   }
 
   /**
    * Called when component is updated.
+   * If a new receipt has been added scrolls to the dummy div
+   * placee after the receipt list.
    *
    * @param prevProps Component previous properties
    */

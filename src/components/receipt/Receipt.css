@@ -1,28 +1,9 @@
-.Receipt
+.ExpenseTypeDropdown button
 {
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 5px;
-  border-top: black 1px solid;
-  border-bottom: black 1px solid;
-  padding-bottom: 5px;
+  font-size: .875em;
 }
 
-.Receipt div
+.ExpenseStyleDropdownItem
 {
-  padding: 5px;
-}
-
-.ReceiptHeader
-{
-  display: flex;
-  flex-direction: row;
-  padding-bottom: 5px;
-}
-
-.ReceiptFooter
-{
-  display: flex;
-  flex-direction: row;
-  padding-bottom: 5px;
+  cursor: pointer;
 }

@@ -14,8 +14,7 @@ import { Utils } from '../../util/Utils';
 // Component properties type
 type FooterProps =
   (EntityListSummary
-   & typeof addReceiptActionCreator
-   & React.Props<{}>);
+   & typeof addReceiptActionCreator);
 
 class Footer extends React.PureComponent<FooterProps, {}> {
   public render(): JSX.Element {

@@ -12,15 +12,14 @@ import * as styles from './ReceiptLine.css';
 
 // Interface for component properties
 interface IReceiptLineOwnProps {
-   receipt: ReceiptEntity;
-   receiptLine: ReceiptLineEntity;
-  }
+  receipt: ReceiptEntity;
+  receiptLine: ReceiptLineEntity;
+}
 
 // Component properties type
 type ReceiptLineProps =
   (IReceiptLineOwnProps
-   & typeof receiptLineActionCreators
-   & React.Props<{}>);
+   & typeof receiptLineActionCreators);
 
 class ReceiptLine extends React.PureComponent<ReceiptLineProps, {}> {
   public render(): JSX.Element {

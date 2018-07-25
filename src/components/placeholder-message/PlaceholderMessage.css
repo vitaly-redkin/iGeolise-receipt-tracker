@@ -1,0 +1,12 @@
+.PlaceholderRow
+{
+  width: 100%;
+  height: 60px;
+  padding-right: 0;
+}
+
+.PlaceholderText
+{
+  color: #cccccc;
+  font-style: italic;
+}

@@ -4,39 +4,40 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { Container } from 'reactstrap';
 import { ReceiptEntity } from '../../model/ReceiptEntity';
 import { ReceiptListEntity } from '../../model/ReceiptListEntity';
 import { IApplicationState } from '../../store';
+import { PlaceholderMessage } from '../placeholder-message/PlaceholderMessage';
 import Receipt from '../receipt/Receipt';
-import * as styles from './ReceiptList.css';
 
 // Component properties type
-type ReceiptListProps =
-  (ReceiptListEntity
-   & React.Props<{}>);
+interface IReceiptListProps {
+  receiptList: ReceiptListEntity;
+}
 
-class ReceiptList extends React.PureComponent<ReceiptListProps, {}> {
+class ReceiptList extends React.PureComponent<IReceiptListProps, {}> {
   public render(): JSX.Element {
-    const receipts: ReceiptEntity[] = this.props.list;
+    const receipts: ReceiptEntity[] = this.props.receiptList.list;
     if (receipts.length === 0) {
       return (
-        <div>Click Add Receipt button to add new receipt</div>
+        <PlaceholderMessage message='Click Add Receipt button to add new receipt' />
       );
     }
 
     return (
-      <div className={styles.ReceiptList}>
+      <Container className='pl-0 pr-0'>
         {receipts.map((receipt: ReceiptEntity) => (
           <Receipt key={receipt.id.id} receipt={receipt} />
         ))}
-      </div>
+      </Container>
     );
   }
 }
 
 // Redux mapStateToProps function
-function mapStateToProps(state: IApplicationState) : ReceiptListEntity {
-  return {...state.receiptList.receiptList};
+function mapStateToProps(state: IApplicationState) : IReceiptListProps {
+  return {receiptList: state.receiptList.receiptList};
 }
 
 // Redux-Wrapped component
