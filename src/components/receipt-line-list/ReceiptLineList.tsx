@@ -8,11 +8,12 @@ import { ReceiptLineEntity } from '../../model/ReceiptLineEntity';
 import ReceiptLine from '../receipt-line/ReceiptLine';
 import * as styles from './ReceiptLineList.css';
 
-interface ReceiptLineListProps {
+// Interface for component properties
+interface IReceiptLineListProps {
   receipt: ReceiptEntity;
  }
 
-export class ReceiptLineList extends React.PureComponent<ReceiptLineListProps, {}> {
+export class ReceiptLineList extends React.PureComponent<IReceiptLineListProps, {}> {
   public render(): JSX.Element {
     const receiptLines: ReceiptLineEntity[] = this.props.receipt.list;
     if (receiptLines.length === 0) {

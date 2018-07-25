@@ -4,11 +4,12 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { Button, Col, Row } from 'reactstrap';
 import { EntityListSummary } from '../../model/EntityListSummary';
 import { IApplicationState } from '../../store';
 import { addReceiptActionCreator } from '../../store/ReceiptListHandler';
 import { Consts } from '../../util/Consts';
-import * as styles from './Footer.css';
+import { Utils } from '../../util/Utils';
 
 // Component properties type
 type FooterProps =
@@ -19,20 +20,21 @@ type FooterProps =
 class Footer extends React.PureComponent<FooterProps, {}> {
   public render(): JSX.Element {
     return (
-      <div className={styles.Footer}>
-        <div>
+      <Row className='w-100 justify-content-around pr-0'>
+        <Col className='align-self-center'>
           Total:
-        </div>
-        <div>
-          {this.props.count}
-          {Consts.CURRENCY_SUFFIX}
-        </div>
-        <div>
-          <button id='AddReceiptButton' type='button' onClick={this.addReceipt}>
+        </Col>
+        <Col className='text-right align-self-center'>
+          <strong><u>
+            {Utils.formatTotal(this.props.count * 100)}
+            </u></strong>
+        </Col>
+        <Col className='text-right justify-content-end pr-0' >
+          <Button id='AddReceiptButton' onClick={this.addReceipt} color='primary' size='sm'>
             Add Receipt
-          </button>
-        </div>
-      </div>
+          </Button>
+        </Col>
+      </Row >
     );
   }
 

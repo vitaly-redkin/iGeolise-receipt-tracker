@@ -1,7 +1,12 @@
-.Main
+.Container
 {
+  max-width: 450px;
   width: 100%;
+  padding: 10px;
   height: 100vh;
-  display: flex;
-  flex-direction: column;
+}
+
+.CardBody
+{
+  overflow: auto;
 }
