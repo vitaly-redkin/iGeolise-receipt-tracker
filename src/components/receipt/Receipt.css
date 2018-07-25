@@ -7,3 +7,9 @@
 {
   cursor: pointer;
 }
+
+.ExpenseTypeColumn
+{
+  display: contents;
+  flex-direction: row;
+}  

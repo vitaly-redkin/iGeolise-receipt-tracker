@@ -25,7 +25,7 @@ class Footer extends React.PureComponent<FooterProps, {}> {
         </Col>
         <Col className='text-right align-self-center'>
           <strong><u>
-            {Utils.formatTotal(this.props.count * 100)}
+            {Utils.formatTotal(this.props.sum)}
             </u></strong>
         </Col>
         <Col className='text-right justify-content-end pr-0' >

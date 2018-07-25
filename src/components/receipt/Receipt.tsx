@@ -31,8 +31,19 @@ class Receipt extends React.PureComponent<ReceiptProps, {}> {
 
         <CardHeader className='pr-0'>
           <Row className='w-100 justify-content-around pr-0'>
-            <Col className='align-self-center'>
+            <Col className='align-self-center pr-0 mr-0' style={{flexGrow: 0}}>
+              <Button
+                id={`DeleteReceiptButton_${this.props.receipt.id.id}`}
+                onClick={this.deleteReceipt}
+                className='close'
+                aria-label='Close'
+                title='Delete receipt'
+              >
+                <span aria-hidden='true'>&times;</span>
+              </Button>
+            </Col>
 
+            <Col className='align-self-center col-6'>
               <UncontrolledDropdown size='sm' className={styles.ExpenseTypeDropdown}>
                 <DropdownToggle caret={true}>
                   {this.props.receipt.expenseType}
@@ -55,28 +66,16 @@ class Receipt extends React.PureComponent<ReceiptProps, {}> {
                   }
                 </DropdownMenu>
               </UncontrolledDropdown>
-
             </Col>
 
-            <Col className='text-right align-self-center pr-0' style={{display: 'contents'}}>
+            <Col className='text-right align-self-center pr-0'>
               <Button
                 id={`AddReceiptLineButton_${this.props.receipt.id.id}`}
                 onClick={this.addReceiptLine}
                 color='primary'
                 size='sm'
-                className='mr-2'
               >
                 Add Expense
-              </Button>
-
-              <Button
-                id={`AddReceiptLineButton_${this.props.receipt.id.id}`}
-                onClick={this.deleteReceipt}
-                className='close'
-                aria-label='Close'
-                title='Delete receipt'
-              >
-                <span aria-hidden='true'>&times;</span>
               </Button>
             </Col>
           </Row >
@@ -85,7 +84,7 @@ class Receipt extends React.PureComponent<ReceiptProps, {}> {
         <CardBody className='pr-0'>
           <ReceiptLineList receipt={this.props.receipt} />
 
-          <Row className='w-100 justify-content-around pr-0'>
+          <Row className='w-100 justify-content-around pr-0 pt-3'>
             <Col className='align-self-center'>
               Total:
             </Col>
