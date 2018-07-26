@@ -91,7 +91,7 @@ class ReceiptLine extends React.PureComponent<ReceiptLineProps, IReceiptLineStat
   /**
    * Name change event handler.
    *
-   * @param e Event to handle
+   * @param e Event details
    */
   private nameChanged = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const name: string = e.target.value.trim();
@@ -102,7 +102,7 @@ class ReceiptLine extends React.PureComponent<ReceiptLineProps, IReceiptLineStat
   /**
    * Amount change event handler.
    *
-   * @param e Event to handle
+   * @param e Event details
    */
   private amountChanged = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const name: string = this.props.receiptLine.name;

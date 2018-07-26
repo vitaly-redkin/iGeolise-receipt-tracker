@@ -17,7 +17,7 @@ export type StoreType = Store<IApplicationState, AnyAction>;
 /**
  * Configures Redux store.
  *
- * @returns application Redux store.
+ * @returns application Redux store
  */
 export function configureStore() : StoreType {
 /* Replaced with a single statement below to avoid TSLint warnings about absent types

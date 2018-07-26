@@ -5,7 +5,7 @@
  import { EntityId } from '../EntityId';
 
 describe('Test EntityId class', () => {
-  const COUNT: number = 10;
+  const COUNT: number = 1000;
   const idList: EntityId<string>[] = new Array<EntityId<string>>();
   for (let i = 0; i < COUNT; i++) {
     const id = EntityId.CREATE_FOR_STRING();

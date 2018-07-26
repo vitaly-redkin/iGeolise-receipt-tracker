@@ -9,6 +9,7 @@ import { ReceiptEntity } from './ReceiptEntity';
 export class ReceiptListEntity extends BaseEntityWithAmountList<ReceiptEntity> {
   /**
    * Constructor.
+   *
    * @param id ID of the receipt
    * @param expenseType Type of the expense the receipt covers
    */

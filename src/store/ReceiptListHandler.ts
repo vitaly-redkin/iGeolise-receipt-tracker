@@ -1,5 +1,5 @@
 /**
- * The Redux store stuff for the uploaded file.
+ * The Redux store stuff for the receipt list.
  */
 
 import { Reducer } from 'redux';
@@ -37,9 +37,7 @@ export enum ActionTypeEnum {
 }
 
 // -----------------
-// ACTIONS - These are serializable (hence replayable) descriptions of state transitions.
-// They do not themselves have any side-effects; they just describe something that is going to happen.
-// Use @typeName and isActionType for type detection that works even after serialization/deserialization.
+// ACTIONS
 
 /**
  * Interface for the ReceiptAdd action.
@@ -105,16 +103,17 @@ interface IReceiptLineUpdateAction {
 }
 
 /**
- * Declare a 'discriminated union' type. This guarantees that all references to 'type' properties contain one of the
- * declared type strings (and not any other arbitrary string).
+ * Declare a 'discriminated union' type. This guarantees that all references
+ * to 'type' properties contain one of the declared type strings
+ * (and not any other arbitrary string).
  */
 export type KnownAction =
   IReceiptAddAction | IReceiptDeleteAction | IReceiptUpdateExpenseTypeAction |
   IReceiptLineAddAction | IReceiptLineDeleteAction | IReceiptLineUpdateAction;
 
 /**
- * ACTION CREATORS - These are functions exposed to UI components that will trigger a state transition.
- * They don't directly mutate state, but they can have external side-effects (such as loading data)
+ * ACTION CREATORS.
+ * These are functions exposed to UI components that will trigger a state transition.
  */
 const actionCreators = {
   addReceipt: (expenseType: string): AppThunkAction <KnownAction> =>
@@ -148,7 +147,7 @@ const actionCreators = {
   }
 };
 
-export const addReceiptActionCreator = {
+export const receiptListActionCreators = {
   addReceipt: actionCreators.addReceipt
 };
 
@@ -164,8 +163,7 @@ export const receiptLineActionCreators = {
 };
 
 /**
- * REDUCER - For a given state and action, returns the new state
- * To support time travel, this must not mutate the old state
+ * REDUCER - For a given state and action, returns the new state.
  *
  * @param state Current application state
  * @param incomingAction Dispatched Redux action
@@ -229,7 +227,7 @@ export const reducer: Reducer<IReceiptListState> =
   };
 
   /**
-   * Composes state to return fr0m reducers.
+   * Composes state to return from reducers.
    *
    * @param state Current state
    * @param receiptList New receipt list to use in the state

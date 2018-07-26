@@ -7,14 +7,14 @@ import { connect } from 'react-redux';
 import { Button, Col, Row } from 'reactstrap';
 import { EntityListSummary } from '../../model/EntityListSummary';
 import { IApplicationState } from '../../store';
-import { addReceiptActionCreator } from '../../store/ReceiptListHandler';
+import { receiptListActionCreators } from '../../store/ReceiptListHandler';
 import { Consts } from '../../util/Consts';
 import { Utils } from '../../util/Utils';
 
 // Component properties type
 type FooterProps =
   (EntityListSummary
-   & typeof addReceiptActionCreator);
+   & typeof receiptListActionCreators);
 
 class Footer extends React.PureComponent<FooterProps, {}> {
   public render(): JSX.Element {
@@ -53,5 +53,5 @@ function mapStateToProps(state: IApplicationState) : EntityListSummary {
 // Redux-Wrapped component
 export default connect(
   mapStateToProps,
-  addReceiptActionCreator
+  receiptListActionCreators
 )(Footer);

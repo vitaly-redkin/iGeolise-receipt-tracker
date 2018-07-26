@@ -132,8 +132,13 @@ class Receipt extends React.PureComponent<ReceiptProps, {}> {
     this.props.addReceiptLine(this.props.receipt);
   }
 
+  /**
+   * Event handler for the Expense Type "dropown".
+   *
+   * @param  e Event details
+   */
   private expenseTypeSelected = (e: React.MouseEvent<HTMLElement>): void => {
-    // In this particular case I do not see an alternative to the case to any.
+    // In this particular case I do not see an alternative to the cast to any.
     // The only other viable option is binding the event handler in Render method.
     // tslint:disable
     const expenseType = (e.target as any).innerText;
@@ -151,7 +156,7 @@ class Receipt extends React.PureComponent<ReceiptProps, {}> {
   }
 
   /**
-   * Scrols the receipt list to bottom.
+   * Scrolls the receipt list to bottom.
    */
   private scrollToBottom = () => {
     this.dummyDivRef.scrollIntoView({ behavior: 'smooth' });

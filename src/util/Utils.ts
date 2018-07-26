@@ -8,7 +8,7 @@ import {Consts} from './Consts';
 export module Utils {
   /**
    * Formats total value.
-   * If value is 0 just return 0.
+   * If value is 0 returns just 0 withot decial digits.
    *
    * @param value Total value to format
    */

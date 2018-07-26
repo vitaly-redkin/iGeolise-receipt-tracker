@@ -2,7 +2,7 @@
  * The main component (to contain everything else).
  *
  * This component is connected to Redux because we need to scroll down
- * to the last added receipt.
+ * to the last added receipt and so we need to know when new receipt has been added.
  */
 
 import * as React from 'react';
@@ -60,7 +60,7 @@ class Main extends React.PureComponent<MainProps, {}> {
   }
 
   /**
-   * Scrols the receipt list to bottom.
+   * Scrolls the receipt list to bottom.
    */
   private scrollToBottom = () => {
     this.dummyDivRef.scrollIntoView({ behavior: 'smooth' });
