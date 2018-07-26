@@ -24,9 +24,9 @@ class Footer extends React.PureComponent<FooterProps, {}> {
           Total:
         </Col>
         <Col className='text-right align-self-center'>
-          <strong><u>
+          <strong><u><div id='receiptListTotal'>
             {Utils.formatTotal(this.props.sum)}
-            </u></strong>
+          </div></u></strong>
         </Col>
         <Col className='text-right justify-content-end pr-0' >
           <Button id='AddReceiptButton' onClick={this.addReceipt} color='primary' size='sm'>

@@ -57,6 +57,7 @@ class ReceiptLine extends React.PureComponent<ReceiptLineProps, IReceiptLineStat
             <input
               id={`ReceiptLineName_${this.props.receiptLine.id.id}`}
               type='text'
+              placeholder='Enter expense name'
               className={styles.NameInput}
               defaultValue={this.props.receiptLine.name}
               onChange={this.nameChanged}
@@ -66,7 +67,7 @@ class ReceiptLine extends React.PureComponent<ReceiptLineProps, IReceiptLineStat
         <Col className='col-3 text-right align-self-center pl-0 pr-0'>
           <div className={styles.AmountColumn}>
             <input
-              id={`ReceiptLineName_${this.props.receiptLine.id.id}`}
+              id={`ReceiptLineAmount_${this.props.receiptLine.id.id}`}
               type='number'
               className={this.state.invalidAmountFlag ? styles.AmountInputInvalid : styles.AmountInput}
               defaultValue={this.props.receiptLine.amount.toString()}

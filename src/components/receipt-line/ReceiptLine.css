@@ -34,13 +34,36 @@ input.AmountInputInvalid
 
 
 input.AmountInput::-webkit-outer-spin-button,
-input.AmountInput::-webkit-inner-spin-button 
+input.AmountInput::-webkit-inner-spin-button ,
+input.AmountInputInvalid::-webkit-outer-spin-button,
+input.AmountInputInvalid::-webkit-inner-spin-button 
 {
   -webkit-appearance: none;
   margin: 0;
 }
 
-input[type=number].AmountInput
+input[type=number].AmountInput,
+input[type=number].AmountInputInvalid
 {
   -moz-appearance:textfield;
+}
+
+
+::placeholder /* Chrome, Firefox, Opera, Safari 10.1+ */
+{ 
+  color:#cccccc;
+  font-style: italic;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder /* Internet Explorer 10-11 */
+{ 
+  color:#cccccc;
+  font-style: italic;
+}
+
+::-ms-input-placeholder /* Edge */
+{ 
+  color:#cccccc;
+  font-style: italic;
 }

@@ -94,9 +94,9 @@ class Receipt extends React.PureComponent<ReceiptProps, {}> {
               Total:
             </Col>
             <Col className='text-right align-self-center pr-1'>
-              <strong><u>
+              <strong><u><div id={`receiptTotal_${this.props.receipt.id.id}`}>
                 {Utils.formatTotal(this.props.receipt.summary.sum)}
-              </u></strong>
+              </div></u></strong>
             </Col>
           </Row >
           <div ref={this.setDummyDivRef} />
