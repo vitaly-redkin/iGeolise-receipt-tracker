@@ -6,10 +6,18 @@
   align-items: center!important;
 }
 
+input.NameInput,
+input.AmountInput,
+input.AmountInputInvalid
+{
+  padding: 2px;
+  border: #cccccc 1px solid;
+  height: 27px;
+}
+
 input.NameInput
 {
   width: 100%;
-  padding: 2px;
 }
 
 input.AmountInput,
@@ -17,7 +25,6 @@ input.AmountInputInvalid
 {
   width: 80%;
   text-align: right;
-  padding: 2px;
 }
 
 input.AmountInputInvalid 
@@ -31,4 +38,9 @@ input.AmountInput::-webkit-inner-spin-button
 {
   -webkit-appearance: none;
   margin: 0;
+}
+
+input[type=number].AmountInput
+{
+  -moz-appearance:textfield;
 }
