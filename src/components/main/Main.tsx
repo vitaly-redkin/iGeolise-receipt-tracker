@@ -63,6 +63,7 @@ class Main extends React.PureComponent<MainProps, {}> {
    * Scrols the receipt list to bottom.
    */
   private scrollToBottom = () => {
+    console.log(this.dummyDivRef);
     this.dummyDivRef.scrollIntoView({ behavior: 'smooth' });
   }
 }
