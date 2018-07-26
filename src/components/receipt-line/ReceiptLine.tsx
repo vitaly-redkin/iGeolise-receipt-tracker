@@ -41,13 +41,13 @@ class ReceiptLine extends React.PureComponent<ReceiptLineProps, IReceiptLineStat
 
   public render(): JSX.Element {
     return (
-      <Row className='w-100 justify-content-around pr-0'>
-        <Col className='col-6 text-left align-self-center'>
+      <Row className='w-100 pr-0 pb-3 mr-0'>
+        <Col className='col-9 text-left align-self-center'>
           <div className={styles.NameColumn}>
             <Button
                 id={`DeleteReceiptLineButton_${this.props.receiptLine.id.id}`}
                 onClick={this.deleteReceiptLine}
-                className='close pr-1'
+                className='close pr-2'
                 aria-label='Close'
                 title='Delete expense'
             >
@@ -57,12 +57,13 @@ class ReceiptLine extends React.PureComponent<ReceiptLineProps, IReceiptLineStat
             <input
               id={`ReceiptLineName_${this.props.receiptLine.id.id}`}
               type='text'
+              className={styles.NameInput}
               defaultValue={this.props.receiptLine.name}
               onChange={this.nameChanged}
             />
           </div>
         </Col>
-        <Col className='col-2 text-right align-self-center pr-0'>
+        <Col className='col-3 text-right align-self-center pl-0 pr-0'>
           <div className={styles.AmountColumn}>
             <input
               id={`ReceiptLineName_${this.props.receiptLine.id.id}`}

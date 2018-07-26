@@ -4,7 +4,7 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Button, Card, CardBody, CardHeader, Col,
+import { Button, Card, CardBody, CardFooter, CardHeader, Col,
          DropdownItem, DropdownMenu, DropdownToggle, Row,
          UncontrolledDropdown } from 'reactstrap';
 import { ReceiptEntity } from '../../model/ReceiptEntity';
@@ -46,7 +46,7 @@ class Receipt extends React.PureComponent<ReceiptProps, {}> {
               </Button>
             </Col>
 
-            <Col className='align-self-center col-6'>
+            <Col className='align-self-center col-6 pl-2'>
               <UncontrolledDropdown size='sm' className={styles.ExpenseTypeDropdown}>
                 <DropdownToggle caret={true}>
                   {this.props.receipt.expenseType}
@@ -84,21 +84,23 @@ class Receipt extends React.PureComponent<ReceiptProps, {}> {
           </Row >
         </CardHeader>
 
-        <CardBody className='pr-0'>
+        <CardBody className='pr-0 pb-1'>
           <ReceiptLineList receipt={this.props.receipt} />
+        </CardBody>
 
-          <Row className='w-100 justify-content-around pr-0 pt-3'>
+        <CardFooter className='pr-0'>
+          <Row className='w-100 justify-content-around pr-0'>
             <Col className='align-self-center'>
               Total:
             </Col>
-            <Col className='text-right align-self-center pr-0'>
+            <Col className='text-right align-self-center pr-1'>
               <strong><u>
                 {Utils.formatTotal(this.props.receipt.summary.sum)}
               </u></strong>
             </Col>
           </Row >
           <div ref={this.setDummyDivRef} />
-        </CardBody>
+        </CardFooter>
 
       </Card>
     );

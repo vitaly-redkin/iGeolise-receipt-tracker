@@ -3,14 +3,32 @@
 {
   display: flex;
   flex-direction: row;
+  align-items: center!important;
+}
+
+input.NameInput
+{
+  width: 100%;
+  padding: 2px;
 }
 
 input.AmountInput,
 input.AmountInputInvalid
 {
-  width: 60px;
+  width: 80%;
+  text-align: right;
+  padding: 2px;
 }
 
-input.AmountInputInvalid {
+input.AmountInputInvalid 
+{
   background-color: pink;
+}
+
+
+input.AmountInput::-webkit-outer-spin-button,
+input.AmountInput::-webkit-inner-spin-button 
+{
+  -webkit-appearance: none;
+  margin: 0;
 }
