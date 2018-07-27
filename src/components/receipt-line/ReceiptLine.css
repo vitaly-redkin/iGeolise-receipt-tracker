@@ -67,3 +67,12 @@ input[type=number].AmountInputInvalid
   color:#cccccc;
   font-style: italic;
 }
+
+@media (max-device-width : 667px)
+{
+  input.AmountInput,
+  input.AmountInputInvalid
+  {
+    width: 70%;
+  }
+}

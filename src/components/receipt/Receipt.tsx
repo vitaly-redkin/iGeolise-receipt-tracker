@@ -46,7 +46,7 @@ class Receipt extends React.PureComponent<ReceiptProps, {}> {
               </Button>
             </Col>
 
-            <Col className='align-self-center col-6 pl-2'>
+            <Col className='align-self-center col-3 pl-2'>
               <UncontrolledDropdown size='sm' className={styles.ExpenseTypeDropdown}>
                 <DropdownToggle caret={true}>
                   {this.props.receipt.expenseType}

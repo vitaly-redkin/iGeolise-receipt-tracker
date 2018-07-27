@@ -20,10 +20,10 @@ class Footer extends React.PureComponent<FooterProps, {}> {
   public render(): JSX.Element {
     return (
       <Row className='w-100 justify-content-around pr-0'>
-        <Col className='align-self-center'>
+        <Col className='align-self-center pr-0'>
           Total:
         </Col>
-        <Col className='text-right align-self-center'>
+        <Col className='text-right align-self-center pr-0 pl-0'>
           <strong><u><div id='receiptListTotal'>
             {Utils.formatTotal(this.props.sum)}
           </div></u></strong>
